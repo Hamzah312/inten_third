@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { LocalStorageCountriesService } from 'src/app/shared/local-storage-countries.service';
-import { take } from 'rxjs';
+import { debounceTime, take } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { BordersTableComponent } from '../borders-table/borders-table.component';
 @Component({
@@ -37,14 +37,12 @@ export class CountriesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCountries();
-    console.log(this.localStorageCountriesService.getStoredCountries());
-    console.log(this.localStorageCountriesService.getStoredBorders());
   }
 
   getCountries(): void {
     this.fetchCountryService
       .getCountries()
-      .pipe(take(1))
+      .pipe(debounceTime(500),take(1))
       .subscribe((countries: Country[]) => {
         this.countriesList = countries;
         this.countries.data = countries;
@@ -127,7 +125,7 @@ export class CountriesListComponent implements OnInit {
       data: { borders: clickedBordersCountriesList,name:country.name },
     });
   }
-  
+
   getDialogBorderData(
     bordersFromCountriesList: Country[],
     bordersFromStorage: Country[]

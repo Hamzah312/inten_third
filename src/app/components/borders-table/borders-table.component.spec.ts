@@ -8,7 +8,7 @@ describe('BordersTableComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BordersTableComponent]
+      declarations: [BordersTableComponent],
     });
     fixture = TestBed.createComponent(BordersTableComponent);
     component = fixture.componentInstance;

@@ -1,16 +1,18 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
-import { Country } from './Country';
+import { Country } from './models/Country.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageCountriesService {
-  private storedCountries: Country[] = JSON.parse(
-    localStorage.getItem('selectedCountries')!
-  );
+  private storedCountries!: Country[];
 
-  constructor() {}
+  constructor() {
+    this.storedCountries = JSON.parse(
+      localStorage.getItem('selectedCountries')!
+    );
+  }
 
   storeSelectedCountries(selectedCountries: Country[]) {
     localStorage.setItem(
@@ -22,21 +24,11 @@ export class LocalStorageCountriesService {
   getStoredCountries(): Country[] {
     return this.storedCountries;
   }
-  checkAllStoredCountries(countries: Country[]) {
-    for (const country of countries) {
-      if (this.storedCountries.some(storedCountry => storedCountry.cca3 === country.cca3)) {
-        country.isChecked=true;
-      }
-    }
-  }
 
-  storeSelectedBorders(borders:Country[]){
-    localStorage.setItem(
-      'selectedBorders',
-      JSON.stringify(borders)
-    );
+  storeSelectedBorders(borders: Country[]) {
+    localStorage.setItem('selectedBorders', JSON.stringify(borders));
   }
-  getStoredBorders(): Country[]{
+  getStoredBorders(): Country[] {
     return JSON.parse(localStorage.getItem('selectedBorders')!);
   }
 }

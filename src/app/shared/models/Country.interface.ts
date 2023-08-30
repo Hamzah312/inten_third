@@ -1,8 +1,8 @@
-import { BooleanInput } from "@angular/cdk/coercion";
+import { BooleanInput } from '@angular/cdk/coercion';
 
 export interface Country {
-  disabled:BooleanInput;
-  isChecked:BooleanInput;
+  disabled: BooleanInput;
+  isChecked: BooleanInput;
   name: string;
   capital: string;
   cca3: string;

@@ -1,0 +1,106 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applySearch($event)" placeholder="Ex. pal" />
+</mat-form-field>
+<table
+  mat-table
+  [dataSource]="countriesDataSource"
+  class="mat-elevation-z8"
+  matSort
+  (matSortChange)="announceSortChange($event)"
+>
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[0] }}</th>
+    <td mat-cell *matCellDef="let country">
+      <mat-checkbox
+        (change)="toggleAndStoreCountries(country)"
+        [(ngModel)]="country.isChecked"
+        [disabled]="country.disabled"
+      >
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by name"
+    >
+      {{ displayedColumns[1] }}
+    </th>
+    <td mat-cell *matCellDef="let country">{{ country.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="cca3">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by AC3"
+    >
+      {{ displayedColumns[2] }}
+    </th>
+    <td mat-cell *matCellDef="let country">
+      {{ country.cca3 }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="capital">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by Capital"
+    >
+      {{ displayedColumns[3] }}
+    </th>
+    <td mat-cell *matCellDef="let country">
+      {{ country.capital }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="population">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by population"
+    >
+      {{ displayedColumns[4] }}
+    </th>
+    <td mat-cell *matCellDef="let country">{{ country.population }}</td>
+  </ng-container>
+  <ng-container matColumnDef="region">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      mat-sort-header
+      sortActionDescription="Sort by region"
+    >
+      {{ displayedColumns[5] }}
+    </th>
+    <td mat-cell *matCellDef="let country">{{ country.region }}</td>
+  </ng-container>
+  <ng-container matColumnDef="border">
+    <th mat-header-cell *matHeaderCellDef>{{ displayedColumns[6] }}</th>
+    <td mat-cell *matCellDef="let country">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="showCountryBorders(country)"
+      >
+        Borders
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator
+  [pageSizeOptions]="[10, 20, 50]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>
